@@ -70,14 +70,19 @@ while True:
         current = ppc.paste()
         history.append(current)
         i += 1
-        cprint(f"{i} --> {current}", bcolors.OKBLUE)
+
+        mlen = len(current) if len(current) < 25 else 25
+        cprint(f"{i} --> {current[:mlen]}", bcolors.OKBLUE)
 
 
     t = inputimeout(prompt='', timeout=1)
     
     if t:
-        if len(t) < 4:
-            
+        if t == "ls":
+            for k, c in enumerate(history):
+                mlen = len(c) if len(c) < 25 else 25
+                cprint(f"{k} --> {c[:mlen]}", bcolors.OKBLUE)
+        elif len(t) < 4: 
             t = int(t)
             ppc.copy(history[t])
             print(f"coppied {t} --> {history[t]}")
